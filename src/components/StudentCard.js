@@ -1,7 +1,8 @@
 import { Fragment, useState } from "react";
 import styled from "styled-components";
+import TagsInput from "./TagsInput";
 
-const Card = ({ student }) => {
+const StudentCard = ({ student }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -11,7 +12,7 @@ const Card = ({ student }) => {
           <Avatar>
             <img
               src={student.pic}
-              alt={`${student.firstName + student.lastName}`}
+              alt={`${student.firstName} ${student.lastName}`}
             />
           </Avatar>
           <CardInfo>
@@ -31,15 +32,15 @@ const Card = ({ student }) => {
             </InfoContainer>
             {isExpanded ? (
               <GradesContainer>
-                {student.grades.map((grade, index) => {
-                  return (
-                    <Grade key={index}>
-                      Test {index + 1}: {grade}%
-                    </Grade>
-                  );
-                })}
+                {student.grades.map((grade, index) => (
+                  <Grade key={index}>
+                    Test {index + 1}:{" "}
+                    <span style={{ marginLeft: "1em" }}>{grade}%</span>
+                  </Grade>
+                ))}
               </GradesContainer>
             ) : null}
+            <TagsInput />
           </CardInfo>
         </StudentInfo>
         {isExpanded ? (
@@ -84,15 +85,14 @@ const InfoContainer = styled.div`
 `;
 const Button = styled.button`
   cursor: pointer;
-  font-family: "Raleway", sans-serif;
-  font-size: 90px;
-  font-weight: 600;
+  font-size: 60px;
+  font-weight: 500;
   color: #a9a9aa;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
+  border: none;
   background: transparent;
-  border: 2px solid red;
+  margin-right: 8px;
 
   &:hover {
     color: black;
@@ -104,4 +104,4 @@ const GradesContainer = styled.ul`
 `;
 const Grade = styled.li``;
 
-export default Card;
+export default StudentCard;

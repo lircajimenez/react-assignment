@@ -2,11 +2,12 @@ import { Fragment, useEffect, useState, useRef } from "react";
 import { GlobalStyles } from "./GlobalStyles.style";
 import styled from "styled-components";
 import Search from "./components/Search";
-import Card from "./components/Card";
+import StudentCard from "./components/StudentCard";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [students, setStudents] = useState([]);
+
   const allStudentsRef = useRef([]);
 
   // fetch data from API
@@ -26,7 +27,7 @@ const App = () => {
   }, []);
   console.log("STUDENTS", students);
 
-  // filter by student full name
+  // search by student name
   const onSearch = (value) => {
     const filterStudents = allStudentsRef.current.filter((student) => {
       const fullName = `${student.firstName} ${student.lastName}`;
@@ -36,6 +37,17 @@ const App = () => {
     setStudents(filterStudents);
   };
 
+  // search by tags
+  // const onSearchTags = (value) => {
+  //   const filterTags = tag.filter((t) => {
+  //     return t.toLowerCase().includes(value.toLowerCase());
+  //   });
+
+  //   setTag(filterTags);
+  // };
+
+  // console.log("search tag", searchTag);
+
   return (
     <Fragment>
       <GlobalStyles />
@@ -43,9 +55,13 @@ const App = () => {
         <h1>Loading...</h1>
       ) : (
         <Container>
-          <Search onSearch={onSearch} />
+          <Search onSearch={onSearch} placeholder="Search by name" />
+          <Search
+            // onSearchTags={onSearchTags}
+            placeholder="Search by tag"
+          />
           {students.map((student) => (
-            <Card student={student} key={student.id} />
+            <StudentCard student={student} key={student.id} />
           ))}
         </Container>
       )}

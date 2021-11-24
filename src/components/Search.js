@@ -1,23 +1,23 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const Search = ({ onSearch }) => {
-  const [nameEntered, setNameEntered] = useState("");
+const Search = ({ onSearch, onSearchTags, placeholder }) => {
+  const [text, setText] = useState("");
 
   const onChange = (ev) => {
     const { value } = ev.target;
-    setNameEntered(value);
+    setText(value);
     onSearch(value);
   };
 
-  // console.log("letter typed", nameEntered);
+  // console.log("letter typed", text);
 
   return (
     <Wrapper>
       <Input
         type="text"
-        placeholder="Search by name"
-        value={nameEntered}
+        placeholder={placeholder}
+        value={text}
         onChange={onChange}
       />
     </Wrapper>
@@ -26,24 +26,21 @@ const Search = ({ onSearch }) => {
 
 const Wrapper = styled.div`
   width: 100%;
-  padding: 1em;
+  padding-inline: 1em;
+  margin-top: 6px;
 `;
 const Input = styled.input`
   font-family: "Raleway", sans-serif;
-  font-size: 1rem;
+  font-size: 1.35rem;
   font-weight: 200;
-  color: #a7a5a7;
-  width: 95%;
-  padding: 8px;
+  width: 100%;
+  padding: 10px;
   border: none;
-  border-bottom: 4px solid var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
 
-  ::placeholder,
-  ::-webkit-input-placeholder {
-    color: #a7a5a7;
-  }
-  :-ms-input-placeholder {
-    color: #a7a5a7;
+  :focus {
+    outline: none;
+    border-color: black;
   }
 `;
 
