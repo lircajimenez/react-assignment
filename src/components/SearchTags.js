@@ -1,13 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const Search = ({ onSearch, placeholder }) => {
+const SearchTags = ({ onSearchTags, placeholder }) => {
   const [text, setText] = useState("");
 
   const onChange = (ev) => {
     const { value } = ev.target;
     setText(value);
-    onSearch(value);
+    onSearchTags(value);
   };
 
   // console.log("letter typed", text);
@@ -44,4 +44,4 @@ const Input = styled.input`
   }
 `;
 
-export default Search;
+export default SearchTags;

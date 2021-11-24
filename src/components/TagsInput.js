@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { TagsContext } from "./TagsContext";
 import styled from "styled-components";
 
 const TagsInput = () => {
   const [tag, setTag] = useState([]);
+  const { searchTags, setSearchTags } = useContext(TagsContext);
 
   const addTag = (ev) => {
     if (ev.key === "Enter") {
@@ -11,14 +13,14 @@ const TagsInput = () => {
     }
   };
 
-  //   console.log("TAGS", tag);
+  console.log("TAGS", tag);
+  //   setSearchTags(arrTags);
+  //   console.log("search tags", searchTags);
 
   return (
     <Wrapper>
       <TagsContainer>
-        {tag.map((t, index) => (
-          <Tag key={index}>{t}</Tag>
-        ))}
+        {tag && tag.map((t, index) => <Tag key={index}>{t}</Tag>)}
       </TagsContainer>
       <Input type="text" placeholder="Add a tag" onKeyPress={addTag} />
     </Wrapper>

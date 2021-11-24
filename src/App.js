@@ -1,14 +1,16 @@
-import { Fragment, useEffect, useState, useRef } from "react";
+import { Fragment, useEffect, useState, useRef, useContext } from "react";
 import { GlobalStyles } from "./GlobalStyles.style";
 import styled from "styled-components";
 import Search from "./components/Search";
 import StudentCard from "./components/StudentCard";
+import SearchTags from "./components/SearchTags";
+import { TagsContext } from "./components/TagsContext";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [students, setStudents] = useState([]);
-
   const allStudentsRef = useRef([]);
+  const { searchTags, setSearchTags } = useContext(TagsContext);
 
   // fetch data from API
   useEffect(() => {
@@ -38,15 +40,11 @@ const App = () => {
   };
 
   // search by tags
-  // const onSearchTags = (value) => {
-  //   const filterTags = tag.filter((t) => {
-  //     return t.toLowerCase().includes(value.toLowerCase());
-  //   });
-
-  //   setTag(filterTags);
-  // };
-
-  // console.log("search tag", searchTag);
+  const onSearchTags = (value) => {
+    // searchTags.filter((tag) => {
+    //   return tag.toLowerCase().includes(value.toLowerCase());
+    // });
+  };
 
   return (
     <Fragment>
@@ -56,10 +54,7 @@ const App = () => {
       ) : (
         <Container>
           <Search onSearch={onSearch} placeholder="Search by name" />
-          <Search
-            // onSearchTags={onSearchTags}
-            placeholder="Search by tag"
-          />
+          <SearchTags onSearchTags={onSearchTags} placeholder="Search by tag" />
           {students.map((student) => (
             <StudentCard student={student} key={student.id} />
           ))}
